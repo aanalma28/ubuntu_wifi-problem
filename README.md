@@ -52,9 +52,22 @@ sudo systemctl start docker
 
 Question mark (?) the Ubuntu Wi-Fi icon appears because the Connectivity Check feature fails to detect the internet due to local DNS being damaged or blocked.
 1. Turn off the built-in DNS solver service:
+```bash
+sudo systemctl stop systemd-resolved
+```
 2. Delete old symlink resolver files:
+```bash
+sudo rm -f /etc/resolv.conf
+```
 3. Create a new `resolv.conf` file manually and navigate to stable public DNS (Google & Cloudflare):
+```bash
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+sudo bash -c 'echo "nameserver 1.1.1.1" >> /etc/resolv.conf'
+```
 4. Restart `systemd-resolved`:
+```bash
+sudo systemctl start systemd-resolved
+```
 
 ## Phase 3 - Temporarily Turn Off IPv6
 
